@@ -1,60 +1,68 @@
-// function calcImc(){
-//     let peso = document.getElementById('Pesotxt')
-//     let altura = document.getElementById('Alturatxt')
-    
-//     if (peso.value.length === 0 || altura.value.length === 0){
-//         window.alert('[ERRO] Preencha todo os campos corretamente e tente novamente')
-//         return;
-//     }
+function getDados(){
+    let peso = (document.querySelector('#Pesonum').value)
+    let altura = (document.querySelector('#Alturanum').value)
+    peso = peso.replace(',' , '.')
+    altura = altura.replace(',' , '.')
+    const pesoNum = Number(peso)
+    const alturaNum = Number(altura)
+    //console.log(typeof alturaNum)
+    if (check(pesoNum, alturaNum) === true){
+        calcImc(pesoNum, alturaNum);}
+}
 
-//     if (peso.value < 0 || altura.value < 0){
-//         window.alert('[ERRO] Valor inválido, tente novamente')
-//         return;
-//     }
+function calcImc(pesoNum, alturaNum){
+    const result = pesoNum / Math.pow(alturaNum, 2)
+    const tipos = ['abaixo do peso', 'no peso normal', 'com sobrepeso', 'com obesidade grau 1', 'com obesidade grau 2', 'com obesidade grau 3']
 
-//     if (peso.value.length != 0 && altura.value.length !=0 && peso.value > 0 && altura.value > 0){
-//         let imc = peso.value / Math.pow(altura.value, 2)
-//         if (imc < 18.5){
-//             painel2.innerHTML = `
-//             <p>Seu imc é ${imc.toFixed(2)}</p>
-//             <p>Você está abaixo do seu peso ideal</p>`
-//             return;
-//         }
-//         if (imc >= 18.5 && imc<=24.9){
-//             painel2.innerHTML = `
-//             <p>Seu imc é ${imc.toFixed(2)}</p>
-//             <p>Você está no seu peso ideal</p>`
-//             return;
-//         }
-//         if (imc >= 25 && imc <=29.9){
-//             painel2.innerHTML = `
-//             <p>Seu imc é ${imc.toFixed(2)}</p>
-//             <p>Cuidado, você está com sobrepeso, recomendamos uma mudança nos seus hábitos</p>`
-//             return;
-//         }
-//         if(imc >= 30 && imc <= 34.9){
-//             painel2.innerHTML = `
-//             <p>Seu imc é ${imc.toFixed(2)}</p>
-//             <p>Atenção! Você está com sobrepeso grau 1! Recomendamos uma visita a um profissional</p>`
-//             return;
-//         }
-//         if (imc >= 35 && imc <= 39.9){
-//             painel2.innerHTML = `
-//             <p>Seu imc é ${imc.toFixed(2)}</p>
-//             <p>Atenção! Você está com sobrepeso grau 2! Recomendamos uma visita a um profissional</p>`
-//             return;
-//         }
-//         if(imc >= 40){
-//             painel2.innerHTML = `
-//             <p>Seu imc é ${imc.toFixed(2)}</p>
-//             <p>Atenção! Você está com sobrepeso grau 3! Recomendamos uma visita a um profissional</p>`
-//             return;
-//         }
-//     }
-// }
+    if (result <= 18.5){
+        painel2.innerHTML = `<p>O seu IMC é de ${result.toFixed(2)}</p>
+        <p>Você está ${tipos[0]}</p>`
+        return;
+    }
 
+    if(result > 18.5 && result <= 24.9){
+        painel2.innerHTML = `<p>O seu IMC é de ${result.toFixed(2)}</p>
+        <p>Você está ${tipos[1]}</p>`
+        return;
+    }
 
+    if(result > 24.9 && result <= 29.9){
+        painel2.innerHTML = `<p>O seu IMC é de ${result.toFixed(2)}</p>
+        <p>Você está ${tipos[2]}</p>`
+        return;
+    }
 
-function calcImc(){
-    
+    if(result > 29.9 && result <= 34.9){
+        painel2.innerHTML = `<p>O seu IMC é de ${result.toFixed(2)}</p>
+        <p>Você está ${tipos[3]}</p>`
+        return;
+    }
+
+    if(result > 34.9 && result <= 39.9){
+        painel2.innerHTML = `<p>O seu IMC é de ${result.toFixed(2)}</p>
+        <p>Você está ${tipos[4]}</p>`
+        return;
+    }
+
+    if(result > 39.9){
+        painel2.innerHTML = `<p>O seu IMC é de ${result.toFixed(2)}</p>
+        <p>Você está ${tipos[5]}</p>`
+        return;
+    }
+
+}
+
+function check(pesoNum, alturaNum){
+    if (isNaN(pesoNum) === true || isNaN(alturaNum) === true){
+        window.alert('[ERRO] Valor inválido, por favor insira um valor númerico e tente novamente')
+        console.log(typeof pesoNum)
+        return false;
+    }
+
+    if(pesoNum.length === 0 || alturaNum.length === 0 || pesoNum <= 0 || alturaNum <=0){
+        window.alert('[ERRO] Valor inválido, por favor insira um valor válido, ou não deixe nenhum campo em branco e tente novamente')
+        return false;
+    } else {
+        return true;
+    }
 }
